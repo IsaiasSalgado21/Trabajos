@@ -58,6 +58,13 @@
         ctx.font= "30px 'Algerian Normal'";
         ctx.strokeText("Hello world", 150, 50);
 
+        const img = new Image();
+        img.src = "seta.png";
+        img.onload = function(){
+            ctx.drawImage(img, 400, 10, 150, 180);
+        }
+        
+
 
     </script>
 </body>
