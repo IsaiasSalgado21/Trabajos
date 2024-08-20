@@ -24,16 +24,36 @@
         ctx.strokeStyle = "red";
         ctx.strokeRect(300, 300, 100, 100);
 
-        ctx,lineWidth = 5
+        //ctx,lineWidth = 5
         ctx.beginPath();
         ctx.moveTo(250, 300);
         ctx.lineTo(400, 175);
         ctx.lineTo(200, 75);
         ctx.lineTo(250, 300);
-        ctx.closePath();
         ctx.fillStyle="rgba(0, 0, 200, 0.5)";
         ctx.fill();
         ctx.stroke();
+        ctx.closePath();
+        
+        ctx.beginPath();
+        ctx.arc(175, 350, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(100, 350, 50, 0, 2 * Math.PI);
+        ctx.strokeStyle = "purple";
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(100, 360, 25, 0, Math.PI);
+        ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
     </script>
 </body>
 </html>
