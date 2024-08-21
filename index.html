@@ -10,6 +10,7 @@
     <script >
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
+        let miColor = getRandomColor();
 
         canvas.addEventListener("mousedown", function(event){
             const rect = canvas .getBoundingClientRect();
@@ -18,16 +19,27 @@
             drawCircle(x,y);
         })
 
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+        
         function drawCircle(x, y){
             const radius = 50;
+            const fillColor = getRandomColor();
             ctx.beginPath();
             ctx.arc(x, y,radius, 0, 2 * Math.PI);
-            ctx.fillStyle="rgba(0,0,255,0.5)";
+            ctx.fillStyle= miColor;
             ctx.fill();
             ctx.stokeStyle = "rgba(255,0,0,0.5)";
             ctx.stroke();
             ctx.closePath();
         }
+        document.body.addEventListener("mouseover", function() {
+            miColor = getRandomColor();
+        });
         /*
         ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
         ctx.fillRect(0, 0, 100, 100);
