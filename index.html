@@ -70,6 +70,15 @@
         gradient.addColorStop(1, "yellow");
         ctx.fillStyle = gradient;
         ctx.fillRect(450,200, 200,100);
+
+        const gradient1 = ctx.createRadialGradient(150, 150, 50, 150, 150, 200);
+        gradient1.addColorStop(0,"red");
+        gradient1.addColorStop(0.5,"yellow");
+        gradient1.addColorStop(1,"blue");
+        ctx.fillStyle=gradient1;
+        ctx.fillRect(100,100,200,200);
+
+
     </script>
 </body>
 </html>
