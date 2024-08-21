@@ -11,12 +11,17 @@
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
         let miColor = getRandomColor();
+        let isDrawingCircle = true;
 
         canvas.addEventListener("mousedown", function(event){
             const rect = canvas .getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            drawCircle(x,y);
+            if (isDrawingCircle) {
+                drawCircle(x, y);
+            } else {
+                drawCuadrado(x - 25, y - 25); // Ajustamos la posición para centrar el cuadrado
+            }
         })
 
         function getRandomColor() {
@@ -37,9 +42,18 @@
             ctx.stroke();
             ctx.closePath();
         }
+        function drawCuadrado(x,y){
+            const fillColor = getRandomColor();
+            ctx.beginPath();
+            ctx.fillStyle=miColor;
+            ctx.fillRect(x, y,50,50)
+        }
         document.body.addEventListener("mouseover", function() {
             miColor = getRandomColor();
+            isDrawingCircle = !isDrawingCircle;
         });
+        document.body.addEventListener("mouseover", function() {
+            miColor = getRandomColor();});
         /*
         ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
         ctx.fillRect(0, 0, 100, 100);
