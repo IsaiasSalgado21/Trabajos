@@ -10,6 +10,25 @@
     <script >
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
+
+        canvas.addEventListener("mousedown", function(event){
+            const rect = canvas .getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            drawCircle(x,y);
+        })
+
+        function drawCircle(x, y){
+            const radius = 50;
+            ctx.beginPath();
+            ctx.arc(x, y,radius, 0, 2 * Math.PI);
+            ctx.fillStyle="rgba(0,0,255,0.5)";
+            ctx.fill();
+            ctx.stokeStyle = "rgba(255,0,0,0.5)";
+            ctx.stroke();
+            ctx.closePath();
+        }
+        /*
         ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
         ctx.fillRect(0, 0, 100, 100);
 
@@ -77,8 +96,9 @@
         gradient1.addColorStop(1,"blue");
         ctx.fillStyle=gradient1;
         ctx.fillRect(100,100,200,200);
-
-
+        */
+        addEventListener("mousedown", (event) => {});
+        
     </script>
 </body>
 </html>
