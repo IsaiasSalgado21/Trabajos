@@ -12,22 +12,34 @@
         let ctx = canvas.getContext("2d");
         let miColor = getRandomColor();
         let isDrawingCircle = true;
+        let isDrawing = false;
 
         canvas.addEventListener("mousedown", function(event){
             const rect = canvas .getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
+            isDrawing = true;
+            drawCirculo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
             if (isDrawingCircle) {
                 drawCircle(x, y);
             } else {
                 drawCuadrado(x - 25, y - 25); // Ajustamos la posición para centrar el cuadrado
             }
         })
-        canvas.addEventListener("mousemove", function(event) {
+        canvas.addEventListener("mouseup",function(event){
             const x = event.clientX - canvas.offsetLeft;
             const y = event.clientY - canvas.offsetTop;
+            
             drawCirculo(x,y);
+        })
+        canvas.addEventListener("mousemove", function(event) {
+            if (isDrawing) {
+                drawCirculo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);}        
+            });
+        canvas.addEventListener('mouseup', function() {
+            isDrawing = false;
         });
+
 
         function getRandomColor() {
             const r = Math.floor(Math.random() * 256);
@@ -57,7 +69,7 @@
             const radius = 5;
             ctx.beginPath();
             ctx.arc(x, y,radius, 0, 2 * Math.PI);
-            ctx.fillStyle= "black";
+            ctx.fillStyle= "black   ";
             ctx.fill();
             ctx.stokeStyle = "rgba(255,0,0,0.5)";
             ctx.stroke();
