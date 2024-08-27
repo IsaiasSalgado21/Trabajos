@@ -10,7 +10,55 @@
     <script >
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
+        let posX = 100;
+        let posY =100;
         let miColor = getRandomColor();
+
+        
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function drawSquare() {
+            const fillColor = getRandomColor();
+            ctx.fillStyle = miColor;
+            ctx.fillRect(posX, posY, 50, 50);
+        }
+
+        document.addEventListener("keydown", function(event){
+            
+            event.preventDefault();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            switch (event.key) {
+                case 'ArrowUp':
+                    posY -= 10;
+                    console.log('Flecha arriba presionada');
+                    break;
+                case 'ArrowDown':
+                    posY += 10;
+                    console.log('Flecha abajo presionada');
+                    break;
+                case 'ArrowRight':
+                    posX += 10;
+                    console.log('Flecha derecha presionada');
+                    break;
+                case 'ArrowLeft':
+                    posX -= 10;
+                    console.log('Flecha izquierda presionada');
+                    break;
+                default:
+                    break;
+            }
+            miColor = getRandomColor();
+            drawSquare(posX, posY);
+        });
+        
+    
+        /*
         let isDrawingCircle = true;
         let isDrawing = false;
 
@@ -39,14 +87,6 @@
         canvas.addEventListener('mouseup', function() {
             isDrawing = false;
         });
-
-
-        function getRandomColor() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            return `rgb(${r}, ${g}, ${b})`;
-        }
         
         function drawCircle(x, y){
             const radius = 50;
@@ -82,7 +122,7 @@
         document.body.addEventListener("mouseover", function() {
             miColor = getRandomColor();});
         
-        /*
+        
         ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
         ctx.fillRect(0, 0, 100, 100);
 
