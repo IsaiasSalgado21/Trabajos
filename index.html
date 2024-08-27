@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id = "miCanvas" width= "1000" height="1000"> navegador no puede mostrar contenido de canvas</canvas>
+    <canvas id = "miCanvas" width= "500" height="500"> navegador no puede mostrar contenido de canvas</canvas>
     <script >
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
@@ -37,18 +37,30 @@
                 case 'ArrowUp':
                     posY -= 10;
                     console.log('Flecha arriba presionada');
+                    if(posY < 0){
+                        posY = canvas.height;
+                    }
                     break;
                 case 'ArrowDown':
                     posY += 10;
                     console.log('Flecha abajo presionada');
+                    if(posY > canvas.height){
+                        posY = 0;
+                    }
                     break;
                 case 'ArrowRight':
                     posX += 10;
                     console.log('Flecha derecha presionada');
+                    if(posX > canvas.width){
+                        posX = 0;
+                    }
                     break;
                 case 'ArrowLeft':
                     posX -= 10;
                     console.log('Flecha izquierda presionada');
+                    if(posX < 0){
+                        posX = canvas.width;
+                    }
                     break;
                 default:
                     break;
