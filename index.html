@@ -14,6 +14,7 @@
         let posY =100;
         let miColor = getRandomColor();
         var direccion = '';
+        var speed = 10;
 
 
         document.addEventListener("keydown", function(event){
@@ -33,6 +34,9 @@
                 case 'ArrowLeft':
                     direccion = 'Left';
                     break;
+                case 'Enter':
+                    speed += 5;
+                    break;
                 default:
                     break;
             }
@@ -41,28 +45,28 @@
         function update(){
             switch (direccion) {
                 case 'Up':
-                    posY -= 10;
+                    posY -= speed;
                     console.log('Flecha arriba presionada');
                     if(posY < 0){
                         posY = canvas.height;
                     }
                     break;
                 case 'Down':
-                    posY += 10;
+                    posY += speed;
                     console.log('Flecha abajo presionada');
                     if(posY > canvas.height){
                         posY = 0;
                     }
                     break;
                 case 'Right':
-                    posX += 10;
+                    posX += speed;
                     console.log('Flecha derecha presionada');
                     if(posX > canvas.width){
                         posX = 0;
                     }
                     break;
                 case 'Left':
-                    posX -= 10;
+                    posX -= speed;
                     console.log('Flecha izquierda presionada');
                     if(posX < 0){
                         posX = canvas.width;
@@ -85,6 +89,9 @@
             const fillColor = getRandomColor();
             ctx.fillStyle = miColor;
             ctx.fillRect(posX, posY, 50, 50);
+
+            ctx.font= "30px 'Arial'";
+            ctx.fillText("Speed: "+ speed, 150, 50);
             
             update();
             requestAnimationFrame(drawSquare);
