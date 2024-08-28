@@ -13,49 +13,55 @@
         let posX = 100;
         let posY =100;
         let miColor = getRandomColor();
+        var direccion = '';
 
-        
-        function getRandomColor() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            return `rgb(${r}, ${g}, ${b})`;
-        }
-
-        function drawSquare() {
-            const fillColor = getRandomColor();
-            ctx.fillStyle = miColor;
-            ctx.fillRect(posX, posY, 50, 50);
-        }
 
         document.addEventListener("keydown", function(event){
             
             event.preventDefault();
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             switch (event.key) {
                 case 'ArrowUp':
+                    direccion = 'Up';
+                    break;
+                case 'ArrowDown':
+                    direccion = 'Down';
+                    break;
+                case 'ArrowRight':
+                    direccion = 'Right';
+                    break;
+                case 'ArrowLeft':
+                    direccion = 'Left';
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        function update(){
+            switch (direccion) {
+                case 'Up':
                     posY -= 10;
                     console.log('Flecha arriba presionada');
                     if(posY < 0){
                         posY = canvas.height;
                     }
                     break;
-                case 'ArrowDown':
+                case 'Down':
                     posY += 10;
                     console.log('Flecha abajo presionada');
                     if(posY > canvas.height){
                         posY = 0;
                     }
                     break;
-                case 'ArrowRight':
+                case 'Right':
                     posX += 10;
                     console.log('Flecha derecha presionada');
                     if(posX > canvas.width){
                         posX = 0;
                     }
                     break;
-                case 'ArrowLeft':
+                case 'Left':
                     posX -= 10;
                     console.log('Flecha izquierda presionada');
                     if(posX < 0){
@@ -65,10 +71,35 @@
                 default:
                     break;
             }
+        }
+
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function drawSquare() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const fillColor = getRandomColor();
+            ctx.fillStyle = miColor;
+            ctx.fillRect(posX, posY, 50, 50);
+            
+            update();
+            requestAnimationFrame(drawSquare);
             miColor = getRandomColor();
-            drawSquare(posX, posY);
-        });
-        
+            
+        }
+        requestAnimationFrame(drawSquare);
+        window.requestAnimationFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 17);
+        };
+}());
     
         /*
         let isDrawingCircle = true;
