@@ -12,11 +12,85 @@
 
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
-
-
-
         
+        //cielo
+        ctx.fillStyle = "rgba(20,154,255,2)";
+        ctx.fillRect(0,0,700,700);
+        //nubes
+        ctx.beginPath();
+        ctx.arc(130, 120, 30, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(255, 255, 255, 2)";
+        ctx.fill();
+        ctx.arc(140, 150, 30, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(255, 255, 255, 2)";
+        ctx.fill();
+        ctx.arc(160, 100, 30, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(255, 255, 255, 2)";
+        ctx.fill();
+        ctx.arc(180, 120, 30, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(255, 255, 255, 2)";
+        ctx.fill();
+        ctx.closePath();
+        //barda
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,201,20,2)";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(20,500,20,300);
+        ctx.fillRect(20,500,20,300);
+        ctx.closePath();
 
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,201,20,2)";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(60,500,20,300);
+        ctx.fillRect(60,500,20,300);
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,201,20,2)";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(620,500,20,300);
+        ctx.fillRect(620,500,20,300);
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,201,20,2)";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(660,500,20,300);
+        ctx.fillRect(660,500,20,300);
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,201,20,2)";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(10,550,700,20);
+        ctx.fillRect(10,550,700,20);
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,201,20,2)";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(10,650,700,20);
+        ctx.fillRect(10,650,700,20);
+        ctx.closePath();
+        //casa 
+        ctx.fillStyle = "rgba(93,1,100,2)";
+        ctx.fillRect(100,300,500,400);
+        ctx.fillStyle = "green";
+        ctx.fillRect(100,270,500,70);
+        //ventana
+        ctx.fillStyle = "cyan";
+        ctx.fillRect(170,370,100,100);
+        ctx.fillStyle = "black";
+        ctx.fillRect(220,370, 5, 100);
+        ctx.fillStyle = "black";
+        ctx.fillRect(170,415, 100, 5);
+        //puerta
+        ctx.fillStyle = "brown";
+        ctx.fillRect(370,425,125,400);
+
+
+        /*
         //orejas
         ctx.beginPath();
         ctx.arc(170, 380, 50, 0, 2* Math.PI);
@@ -114,9 +188,6 @@
         ctx.closePath();
 
         
-
-
-        /*
         let posX = 100;
         let posY =100;
         let miColor = getRandomColor();
