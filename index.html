@@ -6,10 +6,117 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id = "miCanvas" width= "500" height="500"> navegador no puede mostrar contenido de canvas</canvas>
+    <canvas id = "miCanvas" width= "700" height="700"> navegador no puede mostrar contenido de canvas</canvas>
     <script >
+
+
         let canvas = document.getElementById("miCanvas");
         let ctx = canvas.getContext("2d");
+
+
+
+        
+
+        //orejas
+        ctx.beginPath();
+        ctx.arc(170, 380, 50, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(228, 202, 143, 2)";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(430, 380, 50, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(228, 202, 143, 2)";
+        ctx.fill();
+        ctx.closePath();
+
+        //cuerpo
+        ctx.beginPath();
+        ctx.arc(300, 800, 300, 0, 2*Math.PI, false);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.strokeStyle = "black" ;
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(450,650, 5, 200);
+        ctx.fillStyle = "black";
+        ctx.fillRect(150, 650, 5, 200);
+
+        //Cabeza
+        ctx.beginPath();
+        ctx.arc(300, 360, 150, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(228, 202, 143, 2)";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(300, 400, 40, 0, Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.strokeStyle = "black" ;
+        ctx.stroke();
+        ctx.closePath();
+        //cabello 
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(50, 250, 500, 20);
+
+        ctx.beginPath();
+        ctx.arc(300, 260, 100, Math.PI, 2 * Math.PI); 
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.fillStyle = "rgba(255, 0, 0, 2)";
+        ctx.fillRect(200, 240, 200, 20);
+        //pestañas
+        ctx.fillStyle = "black";
+        ctx.fillRect(350,275, 3, 20);
+        ctx.fillStyle = "black";
+        ctx.fillRect(360,275, 3, 20);
+        ctx.fillStyle = "black";
+        ctx.fillRect(370,275, 3, 20);
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(220,275, 3, 20);
+        ctx.fillStyle = "black";
+        ctx.fillRect(230,275, 3, 20);
+        ctx.fillStyle = "black";
+        ctx.fillRect(240,275, 3, 20);
+
+        //Ojos
+        ctx.beginPath();
+        ctx.arc(230, 320, 30, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(255, 255, 255, 2)";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(230, 320, 10, 0, 2* Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+        ctx.beginPath();
+        ctx.arc(360, 320, 30, 0, 2* Math.PI);
+        ctx.fillStyle = "rgba(255, 255, 255, 2)";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(360, 320, 10, 0, 2* Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+
+        
+
+
+        /*
         let posX = 100;
         let posY =100;
         let miColor = getRandomColor();
@@ -108,7 +215,7 @@
         };
 }());
     
-        /*
+        
         let isDrawingCircle = true;
         let isDrawing = false;
 
