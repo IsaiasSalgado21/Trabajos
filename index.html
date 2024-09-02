@@ -9,64 +9,101 @@
     <canvas id = "miCanvas" width= "700" height="700"> navegador no puede mostrar contenido de canvas</canvas>
     <script >
 
+let canvas = document.getElementById("miCanvas");
+let ctx = canvas.getContext("2d");
 
-    let canvas = document.getElementById("miCanvas");
-    let ctx = canvas.getContext("2d");
-    
-    // Cielo
-    ctx.fillStyle = "rgba(20,154,255,1)";
-    ctx.fillRect(0, 0, 700, 700);
-    
-    // Nubes
+// Fondo
+ctx.fillStyle = "#000080"; // Color azul oscuro de fondo
+ctx.fillRect(0, 0, 800, 600);
+
+// Suelo cuadriculado
+function drawGrid(x, y, width, height, rows, cols) {
+    ctx.fillStyle = "#8B4513"; // Marrón oscuro
+    ctx.fillRect(x, y, width, height);
+    let cellWidth = width / cols;
+    let cellHeight = height / rows;
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if ((i + j) % 2 === 0) {
+                ctx.fillStyle = "#D2691E"; // Marrón más claro
+                ctx.fillRect(x + i * cellWidth, y + j * cellHeight, cellWidth, cellHeight);
+            }
+        }
+    }
+}
+
+drawGrid(0, 500, 800, 100, 8, 16); // Suelo cuadriculado
+
+// Hierba superior
+ctx.fillStyle = "#00FF00"; // Verde
+ctx.fillRect(0, 490, 800, 10); // Hierba superior
+ctx.fillRect(0, 480, 800, 10); // Segunda capa de hierba
+
+// Palmera
+function drawPalmTree(x, y) {
+    // Tronco
+    ctx.fillStyle = "#8B4513"; // Marrón oscuro
+    ctx.fillRect(x, y, 20, 100);
+
+    // Hojas
+    ctx.fillStyle = "#00FF00"; // Verde
     ctx.beginPath();
-    ctx.arc(130, 120, 30, 0, 2 * Math.PI);
-    ctx.fillStyle = "white";
+    ctx.moveTo(x + 10, y); 
+    ctx.lineTo(x - 60, y - 60); 
+    ctx.lineTo(x - 40, y - 40);
+    ctx.lineTo(x + 10, y - 20);
+    ctx.lineTo(x + 60, y - 40);
+    ctx.lineTo(x + 80, y - 60);
+    ctx.lineTo(x + 10, y);
     ctx.fill();
-    ctx.arc(160, 100, 30, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.arc(180, 120, 30, 0, 2 * Math.PI);
+
+    ctx.moveTo(x + 10, y); 
+    ctx.lineTo(x - 60, y - 20); 
+    ctx.lineTo(x - 40, y);
+    ctx.lineTo(x + 10, y + 20);
+    ctx.lineTo(x + 60, y);
+    ctx.lineTo(x + 80, y - 20);
+    ctx.lineTo(x + 10, y);
     ctx.fill();
     ctx.closePath();
-    
-    // Plataforma
-    ctx.fillStyle = "rgb(139,69,19)";
-    ctx.fillRect(0, 600, 700, 100);
+}
 
-    // Bloques superiores
-    ctx.fillStyle = "rgb(255,165,0)";
-    ctx.strokeStyle = "black";
+// Dibujar dos palmeras
+drawPalmTree(100, 380);
+drawPalmTree(400, 380);
+
+// Anillos
+function drawRing(x, y) {
+    ctx.strokeStyle = "yellow"; // Color amarillo
     ctx.lineWidth = 5;
-    ctx.strokeRect(50, 150, 50, 50); 
-    ctx.fillRect(50, 150, 50, 50); 
+    ctx.beginPath();
+    ctx.arc(x, y, 20, 0, 2 * Math.PI);
+    ctx.stroke();
+}
 
-    ctx.strokeRect(105, 150, 50, 50);
-    ctx.fillRect(105, 150, 50, 50);
+drawRing(200, 440);
+drawRing(250, 440);
+drawRing(300, 440);
 
-    ctx.strokeRect(150, 250, 50, 50);
-    ctx.fillRect(150, 250, 50, 50);
-
-    // Tubo verde
-    ctx.fillStyle = "green";
-    ctx.fillRect(350, 500, 100, 100);
-    ctx.fillStyle = "darkgreen";
-    ctx.fillRect(350, 475, 100, 25);
-
-    //cubo
-    ctx.fillStyle = "pink";
-    ctx.fillRect(130, 475, 150, 150);
-    ctx.fillStyle = "blue";
-    ctx.fillRect(70, 500, 100, 100);
-    ctx.fillStyle = "green";
-    ctx.fillRect(550, 450, 150, 150);
-    
-
-    // Suelo
-    ctx.fillStyle = "rgb(210,105,30)";
-    for(let i = 0; i < 700; i += 50) {
-        ctx.strokeRect(i, 600, 50, 50);
-        ctx.fillRect(i, 600, 50, 50);
+// Flor girasol
+function drawSunflower(x, y) {
+    // Pétalos
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    for (let i = 0; i < 8; i++) {
+        ctx.arc(x, y, 30, i * 0.8, (i + 0.5) * 0.8);
+        ctx.lineTo(x, y);
     }
+    ctx.fill();
 
+    // Centro de la flor
+    ctx.fillStyle = "green";
+    ctx.beginPath();
+    ctx.arc(x, y, 20, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+drawSunflower(600, 450);
         /*
         //orejas
         ctx.beginPath();
