@@ -17,6 +17,7 @@ let miColor = getRandomColor();
 var direccion = '';
 var speed = 10;
 
+
 class Rectangulo {
     constructor(x, y, width, height, color) {
         this.x = x;
@@ -69,6 +70,13 @@ let target = new Rectangulo(
     Math.random() * (canvas.width - 50),
     Math.random() * (canvas.height - 50),
     50, 50, 'red'
+);
+let obstaculo = new Rectangulo(
+    100,
+    200,
+    20,
+    400,
+    'black'
 );
 
         document.addEventListener("keydown", function(event){
@@ -166,6 +174,7 @@ function draw() {
 
     player.move();
     player.draw();
+    obstaculo.draw()
 
     if (player.checkCollision(target)) {
         target.x = Math.random() * (canvas.width - target.width);
@@ -177,6 +186,11 @@ function draw() {
 
     ctx.font = "30px Arial";
     ctx.fillText("Speed: " + speed, 150, 50);
+
+    if(player.checkCollision(obstaculo)){
+        direccion = '';
+        console.log("colision con el rectangulo");
+    }
 
     requestAnimationFrame(draw);
 }
