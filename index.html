@@ -11,7 +11,178 @@
 
 let canvas = document.getElementById("miCanvas");
 let ctx = canvas.getContext("2d");
+let posX = 100;
+let posY = 100;
+let miColor = getRandomColor();
+var direccion = '';
+var speed = 10;
 
+class Rectangulo {
+    constructor(x, y, width, height, color) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
+
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    move() {
+        switch (direccion) {
+            case 'Up':
+                this.y -= speed;
+                if (this.y < 0) this.y = canvas.height - this.height;
+                break;
+            case 'Down':
+                this.y += speed;
+                if (this.y > canvas.height - this.height) this.y = 0;
+                break;
+            case 'Right':
+                this.x += speed;
+                if (this.x > canvas.width - this.width) this.x = 0;
+                break;
+            case 'Left':
+                this.x -= speed;
+                if (this.x < 0) this.x = canvas.width - this.width;
+                break;
+            default:
+                break;
+        }
+    }
+
+    checkCollision(otherRect) {
+        return (
+            this.x < otherRect.x + otherRect.width &&
+            this.x + this.width > otherRect.x &&
+            this.y < otherRect.y + otherRect.height &&
+            this.y + this.height > otherRect.y
+        );
+    }
+}
+
+let player = new Rectangulo(posX, posY, 50, 50, miColor);
+let target = new Rectangulo(
+    Math.random() * (canvas.width - 50),
+    Math.random() * (canvas.height - 50),
+    50, 50, 'red'
+);
+
+        document.addEventListener("keydown", function(event){
+            
+            event.preventDefault();
+
+            switch (event.key) {
+                case 'ArrowUp':
+                    direccion = 'Up';
+                    break;
+                case 'ArrowDown':
+                    direccion = 'Down';
+                    break;
+                case 'ArrowRight':
+                    direccion = 'Right';
+                    break;
+                case 'ArrowLeft':
+                    direccion = 'Left';
+                    break;
+                case 'Enter':
+                    speed += 5;
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        function update(){
+            switch (direccion) {
+                case 'Up':
+                    posY -= speed;
+                    console.log('Flecha arriba presionada');
+                    if(posY < 0){
+                        posY = canvas.height;
+                    }
+                    break;
+                case 'Down':
+                    posY += speed;
+                    console.log('Flecha abajo presionada');
+                    if(posY > canvas.height){
+                        posY = 0;
+                    }
+                    break;
+                case 'Right':
+                    posX += speed;
+                    console.log('Flecha derecha presionada');
+                    if(posX > canvas.width){
+                        posX = 0;
+                    }
+                    break;
+                case 'Left':
+                    posX -= speed;
+                    console.log('Flecha izquierda presionada');
+                    if(posX < 0){
+                        posX = canvas.width;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function drawSquare() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const fillColor = getRandomColor();
+            ctx.fillStyle = miColor;
+            ctx.fillRect(posX, posY, 50, 50);
+
+            ctx.font= "30px 'Arial'";
+            ctx.fillText("Speed: "+ speed, 150, 50);
+            
+            update();
+            requestAnimationFrame(drawSquare);
+            miColor = getRandomColor();
+            
+        }
+        requestAnimationFrame(drawSquare);
+        window.requestAnimationFrame = (function () {
+        return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 17);
+        };
+}());
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    player.move();
+    player.draw();
+
+    if (player.checkCollision(target)) {
+        target.x = Math.random() * (canvas.width - target.width);
+        target.y = Math.random() * (canvas.height - target.height);
+        target.color = getRandomColor();
+    }
+
+    target.draw();
+
+    ctx.font = "30px Arial";
+    ctx.fillText("Speed: " + speed, 150, 50);
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+/*
 // Fondo
 ctx.fillStyle = "#000080"; // Color azul oscuro de fondo
 ctx.fillRect(0, 0, 800, 600);
@@ -104,7 +275,7 @@ function drawSunflower(x, y) {
 }
 
 drawSunflower(600, 450);
-        /*
+        
         //orejas
         ctx.beginPath();
         ctx.arc(170, 380, 50, 0, 2* Math.PI);
@@ -202,103 +373,7 @@ drawSunflower(600, 450);
         ctx.closePath();
 
         
-        let posX = 100;
-        let posY =100;
-        let miColor = getRandomColor();
-        var direccion = '';
-        var speed = 10;
-
-
-        document.addEventListener("keydown", function(event){
-            
-            event.preventDefault();
-
-            switch (event.key) {
-                case 'ArrowUp':
-                    direccion = 'Up';
-                    break;
-                case 'ArrowDown':
-                    direccion = 'Down';
-                    break;
-                case 'ArrowRight':
-                    direccion = 'Right';
-                    break;
-                case 'ArrowLeft':
-                    direccion = 'Left';
-                    break;
-                case 'Enter':
-                    speed += 5;
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        function update(){
-            switch (direccion) {
-                case 'Up':
-                    posY -= speed;
-                    console.log('Flecha arriba presionada');
-                    if(posY < 0){
-                        posY = canvas.height;
-                    }
-                    break;
-                case 'Down':
-                    posY += speed;
-                    console.log('Flecha abajo presionada');
-                    if(posY > canvas.height){
-                        posY = 0;
-                    }
-                    break;
-                case 'Right':
-                    posX += speed;
-                    console.log('Flecha derecha presionada');
-                    if(posX > canvas.width){
-                        posX = 0;
-                    }
-                    break;
-                case 'Left':
-                    posX -= speed;
-                    console.log('Flecha izquierda presionada');
-                    if(posX < 0){
-                        posX = canvas.width;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        function getRandomColor() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            return `rgb(${r}, ${g}, ${b})`;
-        }
-
-        function drawSquare() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const fillColor = getRandomColor();
-            ctx.fillStyle = miColor;
-            ctx.fillRect(posX, posY, 50, 50);
-
-            ctx.font= "30px 'Arial'";
-            ctx.fillText("Speed: "+ speed, 150, 50);
-            
-            update();
-            requestAnimationFrame(drawSquare);
-            miColor = getRandomColor();
-            
-        }
-        requestAnimationFrame(drawSquare);
-        window.requestAnimationFrame = (function () {
-        return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 17);
-        };
-}());
+        
     
         
         let isDrawingCircle = true;
