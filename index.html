@@ -17,19 +17,36 @@ let direccion = '';
 let speed = 10;
 let puntos = 0;
 let enPausa = true;
+let musicaFondo = new Audio('kirbySong.mp3');
+
+musicaFondo.loop = true;
+musicaFondo.volume = 0.5;
+musicaFondo.play();
 
 class Rectangulo {
-    constructor(x, y, width, height, color) {
+    constructor(x, y, width, height, color ,imgSrc = null) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.image = null;
+
+        if(imgSrc){
+            this.image = new Image();
+            this.image.src = imgSrc
+        }
     }
 
     draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (this.image) {
+            // Si la imagen está cargada, la dibujamos
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        } else {
+            // Si no hay imagen, dibujamos un rectángulo como antes
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
 
     move() {
@@ -80,11 +97,11 @@ class Obstaculo {
     }
 }
 
-let player = new Rectangulo(posX, posY, 50, 50, miColor);
+let player = new Rectangulo(posX, posY, 50, 50, miColor, 'kirby.png');
 let target = new Rectangulo(
     Math.random() * (canvas.width - 50),
     Math.random() * (canvas.height - 50),
-    50, 50, 'red'
+    50, 50, 'red', 'enemy.png'
 );
 
 
