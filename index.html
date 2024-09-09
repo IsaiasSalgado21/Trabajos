@@ -16,6 +16,7 @@ let miColor = getRandomColor();
 let direccion = '';
 let speed = 10;
 let puntos = 0;
+let enPausa = true;
 
 class Rectangulo {
     constructor(x, y, width, height, color) {
@@ -97,20 +98,25 @@ document.addEventListener("keydown", function(event) {
     event.preventDefault();
     switch (event.key) {
         case 'ArrowUp':
-            direccion = 'Up';
+            if(!enPausa) direccion = 'Up';
             break;
         case 'ArrowDown':
-            direccion = 'Down';
+            if(!enPausa)direccion = 'Down';
             break;
         case 'ArrowRight':
-            direccion = 'Right';
+            if(!enPausa)direccion = 'Right';
             break;
         case 'ArrowLeft':
-            direccion = 'Left';
+            if(!enPausa)direccion = 'Left';
             break;
         case 'Enter':
-            speed += 5;
+            if(!enPausa)speed += 5;
             break;
+        case ' ':
+            enPausa = !enPausa;
+            console.log('pausa')
+            console.log(enPausa);
+            
         default:
             break;
     }
@@ -119,19 +125,22 @@ document.addEventListener("keydown", function(event) {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    if(!enPausa){
     player.move();
+    }
+
     player.draw();
 
     obstaculos.forEach(obstaculo => {
         obstaculo.draw();
 
-        if (player.checkCollision(obstaculo)) {
+        if (player.checkCollision(obstaculo)&& !enPausa) {
             direccion = ''; 
             console.log("Colisión con un obstáculo");
         }
     });
 
-    if (player.checkCollision(target)) {
+    if (player.checkCollision(target) && !enPausa) {
         target.x = Math.random() * (canvas.width - target.width);
         target.y = Math.random() * (canvas.height - target.height);
         target.color = getRandomColor();
@@ -144,6 +153,12 @@ function draw() {
     ctx.fillText("Speed: " + speed, 150, 50);
     ctx.font = "30px Arial";
     ctx.fillText("Puntos: " + puntos, 300, 50);
+
+    if(enPausa){
+        ctx.font = "50 Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText("PAUSA", canvas.width / 2 - 100, canvas.height / 2);
+    }
 
     requestAnimationFrame(draw);
 }
